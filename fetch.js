@@ -63,7 +63,13 @@ function sendMsg() {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': `Bearer ${accessToken}`
     }
-  }).catch(err => console.log(err))
+  }).catch(err => {
+    const statusCode = err.response.data.status
+    const message = err.response.data.message
+    if (statusCode === 400) {
+      console.log(`ERROR: ${message}`)
+    }
+  })
 }
 
 module.exports = {
